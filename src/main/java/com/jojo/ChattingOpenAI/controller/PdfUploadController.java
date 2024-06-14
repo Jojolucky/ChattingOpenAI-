@@ -1,6 +1,7 @@
 package com.jojo.ChattingOpenAI.controller;
 
 import com.jojo.ChattingOpenAI.service.PdfUploadService;
+import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,21 +12,16 @@ import java.util.Map;
 @RestController
 public class PdfUploadController {
 
+//    private final OpenAiChatModel chatModel;
     private final PdfUploadService pdfUploadService;
 
     @Autowired
-    public PdfUploadController(PdfUploadService pdfUploadService) {
+    public PdfUploadController(PdfUploadService pdfUploadService, OpenAiChatModel chatModel) {
         this.pdfUploadService = pdfUploadService;
+//        this.chatModel = chatModel;
     }
 
-    @GetMapping({"/ai/generate"})
-    public Map handleQuestion(@RequestParam String message, Model model) {
-        String answer = pdfUploadService.generateAnswer(message);
-        model.addAttribute("message", message);
-        model.addAttribute("answer", answer);
-        return Map.of("generation", answer);
-    }
-
+    // chat with PDF
     @PostMapping({"/api/upload"})
     public Map uploadPdf(@RequestParam("file") MultipartFile file, Model model) {
         pdfUploadService.processPDF(file);
@@ -33,4 +29,5 @@ public class PdfUploadController {
         System.out.println("File uploaded and processed successfully");
         return Map.of("message", "chat");
     }
+
 }
