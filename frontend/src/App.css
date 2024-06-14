@@ -1,0 +1,130 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.App {
+  width: 100%;
+  max-width: 1200px;
+  background-color: #fff;
+  padding: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 0 auto; /* Ensure the container is centered */
+}
+
+#chat-container h1 {
+  margin-bottom: 20px;
+  font-size: 2.5em;
+}
+
+#chat-container p {
+  margin-bottom: 30px;
+  color: #666;
+  font-size: 1.2em;
+}
+
+.example-questions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.example-questions button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 1 1 calc(33.333% - 20px);
+  margin: 10px;
+  font-size: 1em;
+}
+
+.example-questions button:hover {
+  background-color: #e0e0e0;
+}
+
+#input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+#file-upload {
+  flex: 0 1 80px;
+  margin-right: 10px;
+}
+
+#question-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+}
+
+#question-input input {
+  width: calc(100% - 160px); /* Adjust width to be longer */
+  max-width: 800px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  flex: 1;
+  font-size: 1em;
+}
+
+#question-input button {
+  padding: 15px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 0 1 80px;
+  font-size: 1em;
+}
+
+#question-input button:hover {
+  background-color: #0056b3;
+}
+
+#response {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #e9ecef;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.2em;
+}
+
+@media (max-width: 768px) {
+  .example-questions {
+    flex-direction: column;
+  }
+
+  #input-container {
+    flex-direction: column;
+  }
+
+  #question-input input {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
