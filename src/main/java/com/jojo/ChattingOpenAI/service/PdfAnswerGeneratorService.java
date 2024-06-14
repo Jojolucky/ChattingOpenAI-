@@ -28,8 +28,6 @@ public class PdfAnswerGeneratorService {
     public String generateAnswer(String query) {
         // Perform similarity search in the vector store
         List<Document> similarDocuments = vectorStore.similaritySearch(query);
-        System.out.println(similarDocuments);
-
         // Collect content from similar documents
         String information = similarDocuments.stream()
                 .map(Document::getContent)
@@ -39,7 +37,7 @@ public class PdfAnswerGeneratorService {
         SystemPromptTemplate systemPromptTemplate = new SystemPromptTemplate(
                 "    You are a helpful assistant.\n" +
                         "    Use only the following information to answer the question.\n" +
-                        "    Do not use any other information. If you do not know, simply answer: Sorry. I don't have any related resources so far.\n\n" +
+                        "    Do not use any other information. If you do not know, simply answer: Unknow\n\n" +
                         "    {information}\n");
 
         // Create system message with the gathered information
