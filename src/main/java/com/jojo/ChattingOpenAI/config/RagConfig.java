@@ -6,12 +6,15 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-class ChatConfig {
 
-    ChatConfig() {
+@Configuration
+class RagConfig {
+
+    RagConfig() {
 
     }
+
+//    private static final Logger log = LoggerFactory.getLogger(RagConfig.class);
 
     @Bean
     public VectorStore vectorStore(EmbeddingModel embeddingModel) {
