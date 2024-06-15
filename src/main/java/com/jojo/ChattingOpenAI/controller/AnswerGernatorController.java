@@ -15,13 +15,11 @@ import java.util.Map;
 public class AnswerGernatorController {
 
     private final OpenAiChatModel chatModel;
-//    private final PdfUploadService pdfUploadService;
     private final PdfAnswerGeneratorService pdfAnswerGeneratorService;
 
 
     @Autowired
     public AnswerGernatorController(OpenAiChatModel chatModel, PdfAnswerGeneratorService pdfAnswerGeneratorService) {
-//        this.pdfUploadService = pdfUploadService;
         this.chatModel = chatModel;
         this.pdfAnswerGeneratorService = pdfAnswerGeneratorService;
     }

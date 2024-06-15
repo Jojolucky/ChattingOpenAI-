@@ -37,7 +37,7 @@ public class PdfAnswerGeneratorService {
         SystemPromptTemplate systemPromptTemplate = new SystemPromptTemplate(
                 "    You are a helpful assistant.\n" +
                         "    Use only the following information to answer the question.\n" +
-                        "    Do not use any other information. If you do not know, simply answer: Unknow\n\n" +
+                        "    Do not use any other information. If you do not know, simply answer: Unknown\n\n" +
                         "    {information}\n");
 
         // Create system message with the gathered information
