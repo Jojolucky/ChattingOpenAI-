@@ -15,9 +15,8 @@ public class PdfUploadController {
     private final PdfUploadService pdfUploadService;
 
     @Autowired
-    public PdfUploadController(PdfUploadService pdfUploadService, OpenAiChatModel chatModel) {
+    public PdfUploadController(PdfUploadService pdfUploadService) {
         this.pdfUploadService = pdfUploadService;
-//        this.chatModel = chatModel;
     }
 
     // chat with PDF
