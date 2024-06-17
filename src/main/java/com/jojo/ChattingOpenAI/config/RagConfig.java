@@ -10,14 +10,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class RagConfig {
 
-    RagConfig() {
-
-    }
-
-//    private static final Logger log = LoggerFactory.getLogger(RagConfig.class);
-
     @Bean
     public VectorStore vectorStore(EmbeddingModel embeddingModel) {
         return new SimpleVectorStore(embeddingModel);
     }
+
 }

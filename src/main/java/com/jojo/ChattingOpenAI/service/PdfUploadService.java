@@ -8,15 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-import com.jojo.ChattingOpenAI.config.*;
-import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.reader.ExtractedTextFormatter;
 import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
 import org.springframework.ai.reader.pdf.config.PdfDocumentReaderConfig;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -30,8 +27,26 @@ public class PdfUploadService {
 
     @Autowired
     public PdfUploadService(VectorStore vectorStore) {
-
         this.vectorStore = vectorStore;
+    }
+
+    // Process PDF by chunking it
+    public void processPDF(MultipartFile pdfFile) {
+        try {
+            Resource convFile = convertMultiPartToFile(pdfFile);
+            PdfDocumentReaderConfig config = PdfDocumentReaderConfig.builder()
+                    .withPageExtractedTextFormatter(new ExtractedTextFormatter.Builder().build())
+                    .build();
+            PagePdfDocumentReader pdfReader = new PagePdfDocumentReader(convFile, config);
+            TokenTextSplitter textSplitter = new TokenTextSplitter();
+            vectorStore.accept(textSplitter.apply(pdfReader.get()));
+            // Save the processed result
+            saveProcessedResult(textSplitter.apply(pdfReader.get()).toString(), pdfFile.getOriginalFilename());
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Convert MultipartFile to FileSystemResource
@@ -47,26 +62,6 @@ public class PdfUploadService {
             fos.write(file.getBytes());
         }
         return new FileSystemResource(convFile);
-    }
-
-    // Process PDF by chunking it
-    public void processPDF(MultipartFile pdfFile) {
-        try {
-            Resource convFile = convertMultiPartToFile(pdfFile);
-            PdfDocumentReaderConfig config = PdfDocumentReaderConfig.builder()
-                    .withPageExtractedTextFormatter(new ExtractedTextFormatter.Builder().build())
-                    .build();
-            PagePdfDocumentReader pdfReader = new PagePdfDocumentReader(convFile, config);
-            TokenTextSplitter textSplitter = new TokenTextSplitter();
-            vectorStore.accept(textSplitter.apply(pdfReader.get()));
-
-            // Save the processed result
-            saveProcessedResult(textSplitter.apply(pdfReader.get()).toString(), pdfFile.getOriginalFilename());
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     // Method to save the processed result to a file
